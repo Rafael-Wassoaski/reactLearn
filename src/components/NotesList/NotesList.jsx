@@ -6,13 +6,27 @@ import './estilo.css';
 class NotesList extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {notes: []}
+		this._newNote = this._newNote.bind(this);
 	}
-	
+
+	componentDidMount() {
+		this.props.notes.startObserve(this._newNote);
+	}
+
+	componentWillUnmount() {
+		this.props.notes.stopObserve(this._newNote);
+	}
+
+	_newNote(notes){
+		this.setState({...this.state, notes})
+	}
+
 	render() {
 		return (
 			<ul className="noteList">
 				{
-					this.props.notes.map((note, index) => {
+					this.state.notes.map((note, index) => {
 						return (
 							<li key={ index }
 									className="noteList-notes">

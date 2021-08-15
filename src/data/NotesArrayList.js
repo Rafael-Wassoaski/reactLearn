@@ -19,9 +19,14 @@ export default class NotesArrayList{
 		this.notes.push(newNote);
 		this.notify(this.notes);
 	}
+
+	stopObserve(handler){
+		this._observers = this._observers.filter(handle => handle !== handler);
+	}
 	
 	deleteNote(index){
 		this.notes.splice(index, 1);
+		this.notify(this.notes);
 	}
 }
 

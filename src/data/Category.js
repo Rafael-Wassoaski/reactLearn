@@ -12,6 +12,10 @@ export default class Category{
 	startObserve(handler){
 		this._observers.push(handler);
 	}
+
+	stopObserve(handler){
+		this._observers = this._observers.filter(handle => handle !== handler);
+	}
 	
 	notify(newData){
 		for(const handler of this._observers){
